@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "source": "KakarottoCake/Riftwii",
+  "tag_name": "v2611-170",
+  "published_at": "2026-11-12T02:23:54Z",
+  "assets": [
+    {
+      "name": "riftwii-update.pack",
+      "browser_download_url": "https://github.com/KakarottoCake/Riftwii/releases/download/v2611-170/riftwii-update.pack",
+      "size": 6376289,
+      "digest": "sha256:bd9b4f9fd42975a1cfa8e8427eaac8f6139830442162d09c3ee4565347fa7629"
+    },
+    {
+      "name": "riftwii-v2611-170.zip",
+      "browser_download_url": "https://github.com/KakarottoCake/Riftwii/releases/download/v2611-170/riftwii-v2611-170.zip",
+      "size": 8447909,
+      "digest": "sha256:c61600c352c9a6478cfc5f7bc4529a3260d34bab5b9795bfc991adfd2f14cf89"
+    },
+    {
+      "name": "riftwii.dol",
+      "browser_download_url": "https://github.com/KakarottoCake/Riftwii/releases/download/v2611-170/riftwii.dol",
+      "size": 2483488,
+      "digest": "sha256:af2d81f086bc81b0adcbd50e47f164d2ef49dfb4f70325b54358b7df4671ef5e"
+    }
+  ]
+}

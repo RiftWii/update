@@ -1,0 +1,35 @@
+name: Rebuild latest.json
+# A safety net: normally the release workflow in KakarottoCake/Riftwii pushes
+# latest.json here when a release is published. This rebuilds it by hand from
+# the newest release on GitHub, with the same transform.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: latest-json
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Write latest.json from the newest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/KakarottoCake/Riftwii/releases/latest > release.json
+          jq 'if (.tag_name|type) != "string" then error("no tag_name")
+              elif any(.assets[]; (.digest|type) != "string") then error("an asset has no digest")
+              else {schema: 1, source: "KakarottoCake/Riftwii", tag_name, published_at,
+                    assets: [.assets[] | {name, browser_download_url, size, digest}]} end' release.json > latest.json
+          rm release.json
+          jq -e '.tag_name and (.assets | length > 0)' latest.json > /dev/null
+      - name: Commit if it changed
+        run: |
+          if git diff --quiet -- latest.json; then echo "latest.json is already current"; exit 0; fi
+          git config user.name "riftwii"
+          git config user.email "riftwii@localhost"
+          git add latest.json
+          git commit -m "latest.json: $(jq -r .tag_name latest.json) (rebuilt by hand)"
+          git push
